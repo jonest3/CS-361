@@ -135,7 +135,7 @@ app.post('/searchMeals', function(req,res,next){
 
         if(req.body.ingredients.length > 0)
         {
-                queryString += " JOIN requires r ON r.meal_id = m.meal_id JOIN ingredients i ON i.ingredient_id = r.ingredient_id WHERE i.ingredient_id ="+req.body.ingredients[0];
+                queryString += " JOIN contains c ON c.meal_id = m.meal_id JOIN ingredients i ON i.ingredient_id = c.ingredient_id WHERE i.ingredient_id ="+req.body.ingredients[0];
                 for(var i = 1; i < req.body.ingredients.length; i++)
                 {
                         queryString += " AND i.ingredient_id ="+req.body.ingredients[i];
