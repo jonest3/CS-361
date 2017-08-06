@@ -22,6 +22,101 @@ var pool = mysql.createPool({
   password: '2302',
   database: 'cs340_jonest3',
 });
+
+// ---------- Upload Meal ------------
+app.get('/upload', function(req,res,next){
+  var context = {};
+    res.render('upload', context);
+    
+});
+
+app.post('/populateIngredients',function(req,res,next){
+  var context = {};
+
+    pool.query('SELECT ingredient_id, name FROM ingredients', function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    }
+        
+    context.results = JSON.stringify(rows);
+    res.type("text/plain");
+    res.send(context.results);       
+    });
+    
+});
+
+app.post('/uploadMeal',function(req,res,next){
+  var context = {};
+
+    console.log("Insert to `meals` request received: " + req.body.mealName);
+
+    pool.query("INSERT INTO meals (`name`, `description`, `genre`, `prep_time`, `image`, `username_id`, `restaurant_id`) VALUES (?,?,?,?,?,?,?)", [req.body.mealName, req.body.description, req.body.genre, req.body.prepTime, req.body.image, req.body.username_id, req.body.restaurant_id], function(err, result){
+    if(err){
+        next(err);
+        return;
+    }
+    var mealId = result.insertId;
+    pool.query("SELECT * FROM meals WHERE meal_id = ?", [mealId], function (err, rows, fields){
+        if(err){
+            next(err);
+            return;
+    }
+    context.results = JSON.stringify(rows);
+    res.type("text/plain");
+    res.send(context.results);   
+    });
+  }); 
+});
+
+app.post('/addIngredient',function(req,res,next){
+  var context = {};
+
+    console.log("Insert to `ingredient` request received: " + req.body.name);
+
+    pool.query("INSERT INTO ingredients (`name`, `type`) VALUES (?,?)", [req.body.name, req.body.type], function(err, result){
+    if(err){
+        next(err);
+        return;
+    }
+    var ingredientId = result.insertId;
+    pool.query("SELECT * FROM ingredients WHERE ingredient_id = ?", [ingredientId], function (err, rows, fields){
+        if(err){
+            next(err);
+            return;
+    }
+    context.results = JSON.stringify(rows);
+    res.type("text/plain");
+    res.send(context.results);   
+    });
+  }); 
+});
+
+app.post('/connectIngredientsToMeal',function(req,res,next){
+  var context = {};
+
+    console.log("Insert to `contains` request received: " + req.body.ingredient_id + " "+ req.body.meal_id);
+
+    pool.query("INSERT INTO contains (`ingredient_id`, `meal_id`) VALUES (?,?)", [req.body.ingredient_id, req.body.meal_id], function(err, result){
+    if(err){
+        next(err);
+        return;
+    }
+
+    pool.query("SELECT ingredient_id, meal_id FROM contains", function (err, rows, fields){
+        if(err){
+            next(err);
+            return;
+    }
+        
+    context.results = JSON.stringify(rows);
+    res.type("text/plain");
+    res.send(context.results);   
+    });
+  });
+    
+});
+
 // ---------- Searching Meals ------------
 app.get('/searchMeals', function(req,res,next){
    res.render('searchMeals');
