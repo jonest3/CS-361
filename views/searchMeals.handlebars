@@ -1,0 +1,32 @@
+<script src='search.js'></script>
+<h1>SmartChoice: Search Meal</h1>
+
+<form id="mealSearchForm" action="/searchMeals" method="post">
+        <fieldset>
+                <legend>Search for a Recipe</legend>
+                <fieldset>
+                        <legend>General Information</legend>
+                                <label>Meal Name: </label><input type="text" id="mealName    "><br>
+                                <label> Genre: </label><input type="text" id="genre"><br>    <br>
+                                <label> Prep Time (minutes): </label><input type="number"     id="prep_time">
+                                <br>
+                </fieldset>
+                <br>
+<!--                <fieldset>
+                        <legend> Search Ingredients </legend>
+                                <label>Ingredient:</label>
+                                <select multiple="multiple" style="width: 150px" id="ingr    edientsSelect"></select><br>
+                                <label>Type:</label>
+                                <input type="text" id="ingredientType">
+                                <br>
+                </fieldset>
+                <br>
+-->
+                <div style="text-align: center; margin: auto;">
+                        <input type="button" value="Submit" id="searchMeals" style="font-    size: 18px; height: 50px; width: 100px; center-align">
+                </div>
+        </fieldset>
+</form>
+<br>
+<div name="results" id="results">Results Here</div>
+<!--<script src="search.js"></script>-->
