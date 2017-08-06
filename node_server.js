@@ -126,31 +126,49 @@ app.post('/searchMeals', function(req,res,next){
    console.log(req.body);
 // name, genre, prep_time
    var context = {};
-   if(req.body.name != null  ||  req.body.genre != null  ||  req.body.prep_time != null)
+
+   console.log('This is what ingredients array looks like: ' + req.body.ingredients);
+
+   if(req.body.name != null  ||  req.body.genre != null  ||  req.body.prep_time != null  || req.body.ingredients.length > 0)
    {
-        var queryString = "SELECT meal_id, name, description FROM meals WHERE";
-        var queryVars = [];
+        var queryString = "SELECT m.meal_id, m.name, m.description, m.prep_time FROM meals m";
+
+        if(req.body.ingredients.length > 0)
+        {
+                queryString += " JOIN requires r ON r.meal_id = m.meal_id JOIN ingredients i ON i.ingredient_id = r.ingredient_id WHERE i.ingredient_id ="+req.body.ingredients[0];
+                for(var i = 1; i < req.body.ingredients.length; i++)
+                {
+                        queryString += " AND i.ingredient_id ="+req.body.ingredients[i];
+                }
+
+                if(req.body.name != null  ||  req.body.genre != null  ||  req.body.prep_time != null)
+                        queryString += " AND";
+        }
+        else
+                queryString += " WHERE";
+
         if(req.body.name != null)
         {
-                queryString += " name LIKE '%"+req.body.name+"%'";
+                queryString += " m.name LIKE '%"+req.body.name+"%'";
+
         }
 
         if(req.body.genre != null)
         {
                 if(req.body.name != null)
                         queryString += " AND";
-                queryString += " genre LIKE '%"+req.body.genre+"%'";
+                queryString += " m.genre LIKE '%"+req.body.genre+"%'";
         }
 
         if(req.body.prep_time != null)
         {
                 if(req.body.genre != null  ||  req.body.name != null)
-                         queryString += " AND";
-                queryString += " prep_time <="+req.body.prep_time;
+                        queryString += " AND";
+                queryString += " m.prep_time <="+req.body.prep_time;
 
         }
-     
-        console.log(queryVars);
+
+        console.log(queryString);
         pool.query(queryString, function(err,rows,fields){
                 if(err)
                 {
@@ -162,6 +180,17 @@ app.post('/searchMeals', function(req,res,next){
    }
    else
         res.send(JSON.stringify(0));
+});
+
+app.get('/getIngredients', function(req,res,next){
+   var context = {};
+   pool.query('SELECT ingredient_id, name FROM ingredients ORDER BY name', function(err,rows,fields){
+       if(err){
+                next(err);
+                return;
+        }
+        res.send(JSON.stringify(rows));
+   });
 });
 
 // --------- View Meal ------------
