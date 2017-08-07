@@ -131,7 +131,7 @@ app.post('/searchMeals', function(req,res,next){
 
    if(req.body.name != null  ||  req.body.genre != null  ||  req.body.prep_time != null  || req.body.ingredients.length > 0)
    {
-        var queryString = "SELECT m.meal_id, m.name, m.description, m.prep_time FROM meals m";
+        var queryString = "SELECT m.meal_id, m.name, m.description, m.prep_time, m.image FROM meals m";
 
         if(req.body.ingredients.length > 0)
         {
