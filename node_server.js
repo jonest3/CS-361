@@ -5,7 +5,7 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
 var request = require('request');
 var mysql = require('mysql');
-var session = require('express-session');
+// var session = require('express-session');
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: true}));
