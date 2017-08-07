@@ -3,19 +3,17 @@ var link = "www.yahoo.com";
 function showResults(objArr){
    if(objArr.length > 0)
    {
-        var resultList = "<ul>";
+        var resultList = "";
 
         for(var i=0; i < objArr.length; i++)
         {
-                resultList += "<li>";
+                resultList += "<img src='"+objArr[i].image+"' alt='"+objArr[i].name+"' style='width:100px;height:100px;'>";
                 resultList += "<a href='http://" + link + "' id='"+objArr[i].meal_id+"' ";
                 resultList += "title='"+objArr[i].description+"'>";
                 resultList += objArr[i].name + "   [Prep Time: "+ objArr[i].prep_time+" mins]";
                 resultList += "</a>";
-                resultList += "</li>";
         }
 
-     resultList += "</ul>";
         console.log(resultList);
         document.getElementById("results").innerHTML = resultList;
    }
