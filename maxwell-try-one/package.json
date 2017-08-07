@@ -1,0 +1,31 @@
+{
+  "name": "express-4.x-local-example",
+  "version": "0.0.0",
+  "description": "Express 4.x app using Passport for authentication with username and password.",
+  "keywords": [
+    "example",
+    "express",
+    "passport"
+  ],
+  "author": "Max Moulds",
+  "license": "Unlicense",
+  "homepage": "https://github.com/SOMEWHERE",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SOMEWHERE/SOMEREPO.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "connect-ensure-login": "^0.1.1",
+    "handlebars": "^4.0.10",
+    "express-handlebars": "^3.0.0 ",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "passport": "^0.2.2",
+    "passport-local": "^1.0.0",
+    "request": "^2.80.0",
+    "forever": "^0.15.3",
+    "morgan": "^1.6.1",
+    "mysql": "^2.14.1"
+  }
+}
