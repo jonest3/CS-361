@@ -353,6 +353,87 @@ app.post('/connectIngredientsToMeal',function(req,res,next){
 
 });
 
+// ---------- Searching Meals ------------
+app.get('/searchMeals', function(req,res,next){
+   res.render('partials/searchMeals');
+});
+
+app.post('/searchMeals', function(req,res,next){
+   console.log(req.body);
+// name, genre, prep_time
+   var context = {};
+
+   console.log('This is what ingredients array looks like: ' + req.body.ingredients);
+
+   if(req.body.name != null  ||  req.body.genre != null  ||  req.body.prep_time != null  || req.body.ingredients.length > 0)
+   {
+        var queryString = "SELECT m.meal_id, m.name, m.description, m.prep_time, m.image FROM meals m";
+
+        if(req.body.ingredients.length > 0)
+        {
+                queryString += " JOIN contains c ON c.meal_id = m.meal_id JOIN ingredients i ON i.ingredient_id = c.ingredient_id WHERE i.ingredient_id ="+req.body.ingredie
+                for(var i = 1; i < req.body.ingredients.length; i++)
+                {
+                        queryString += " AND i.ingredient_id ="+req.body.ingredients[i];
+                }
+
+
+                if(req.body.name != null  ||  req.body.genre != null  ||  req.body.prep_time != null)
+                        queryString += " AND";
+        }
+        else
+                queryString += " WHERE";
+
+        if(req.body.name != null)
+        {
+                queryString += " m.name LIKE '%"+req.body.name+"%'";
+
+        }
+
+        if(req.body.genre != null)
+        {
+                if(req.body.name != null)
+                        queryString += " AND";
+                queryString += " m.genre LIKE '%"+req.body.genre+"%'";
+        }
+
+        if(req.body.prep_time != null)
+        {
+                if(req.body.genre != null  ||  req.body.name != null)
+                        queryString += " AND";
+                queryString += " m.prep_time <="+req.body.prep_time;
+
+        }
+
+        console.log(queryString);
+        pool.query(queryString, function(err,rows,fields){
+                if(err)
+                {
+                        next(err);
+                        return;
+                }
+                res.send(JSON.stringify(rows));
+        });
+   }   
+   else
+        res.send(JSON.stringify(0));
+});
+
+
+
+app.get('/getIngredients', function(req,res,next){
+   var context = {}; 
+   pool.query('SELECT ingredient_id, name FROM ingredients ORDER BY name', function(err,rows,fields){
+       if(err){
+                next(err);
+                return;
+        }
+        res.send(JSON.stringify(rows));
+   }); 
+});
+
+
+
 app.use(function(req,res){
         res.status(404);
         res.render('404');
