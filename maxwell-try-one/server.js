@@ -128,13 +128,13 @@ app.get('/',
 
 
 //view meal stuffs 
-app.post('/viewMeal', function(req, res, next){
+app.get('/viewMeal', function(req, res, next){
   var context = {};
-  var request = req.body;
+  var requestedId = req.query.id;
 
   //if request body contains a meal_id value, query all attributes of that meal
-    if (request.id) {
-        pool.query("SELECT `meal_id`, `name`, `description`, `genre`, `prep_time`, `image`, `username_id`, `restaurant_id` FROM meals WHERE `meal_id` = ?", [request.id], function(err, rows, fields){
+    if (requestedId) {
+        pool.query("SELECT `meal_id`, `name`, `description`, `genre`, `prep_time`, `image`, `username_id`, `restaurant_id` FROM meals WHERE `meal_id` = ?", [requestedId], function(err, rows, fields){
 
             if (err){
               next(err);
@@ -145,7 +145,7 @@ app.post('/viewMeal', function(req, res, next){
             context.meal = rows[0];
             console.log(context.meal);
 
-            pool.query("SELECT `ingredient_id`, `meal_id` FROM contains WHERE `meal_id` = ?", [request.id], function(err, rows, fields){
+            pool.query("SELECT `ingredient_id`, `meal_id` FROM contains WHERE `meal_id` = ?", [requestedId], function(err, rows, fields){
 
                 if (err) {
                     next(err);
@@ -197,7 +197,7 @@ app.post('/viewMeal', function(req, res, next){
                             *PAGE IF USER IS ORIGINAL MEAL CREATOR (AND SIGNED IN)
                             ******************************/
                             //render view page for user
-                            res.render('view_meal_creator', context);
+                            res.render('partials/view_meal_creator', context);
 
                             //if user is not original recipe creator render page without delete link
                             //res.render('view_meal_browser', context);
@@ -213,7 +213,7 @@ app.post('/viewMeal', function(req, res, next){
                         *PAGE IF USER IS ORIGINAL MEAL CREATOR (AND SIGNED IN)
                         ******************************/
                         //render view page for user
-                        res.render('view_meal_creator', context);
+                        res.render('partials/view_meal_creator', context);
 
                         //if user is not original recipe creator render page without delete link
                         //res.render('view_meal_browser', context);
@@ -248,9 +248,9 @@ app.get('/remove/meal', function(req, res, next){
 
       //send feedback to the user
       if (context.delete_success == true) {
-          res.render('delete_success', context);
+          res.render('partials/delete_success', context);
       } else {
-          res.render('delete_failure', context);
+          res.render('partials/elete_failure', context);
       }
     });
   }
