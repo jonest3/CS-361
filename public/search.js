@@ -1,4 +1,4 @@
-var link = "www.yahoo.com";
+var link = "/viewMeal?id=";
 
 function showResults(objArr){
    if(objArr.length > 0)
@@ -8,7 +8,7 @@ function showResults(objArr){
         for(var i=0; i < objArr.length; i++)
         {
                 resultList += "<img src='"+objArr[i].image+"' alt='"+objArr[i].name+"' style='width:100px;height:100px;'>";
-                resultList += "<a href='http://" + link + "' id='"+objArr[i].meal_id+"' ";
+                resultList += "<a href='" + link + objArr[i].meal_id + "' id='"+objArr[i].meal_id+"' ";
                 resultList += "title='"+objArr[i].description+"'>";
                 resultList += objArr[i].name + "   [Prep Time: "+ objArr[i].prep_time+" mins]";
                 resultList += "</a>";
