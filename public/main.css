@@ -205,8 +205,8 @@
 
 /*-------------------------------------------------------------------------HEADER*/
 .jumbotron {
-  background-color: #ed9c23;
-  color: #999;
+  background-color: #454;
+  color: #fff;
   margin-bottom: 0;
 }
 
@@ -235,6 +235,6 @@ body {
 /*-------------------------------------------------------------------------FOOTER*/
 .footer {
   background-color: #454;
-  color: #999;
+  color: #fff;
   margin-bottom: 0px;
 }
