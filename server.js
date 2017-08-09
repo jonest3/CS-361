@@ -84,10 +84,10 @@ app.use(passport.session());
 //tis NOT GOOD, but lest we continue
 var pool = mysql.createPool({
   connectionLimit: 10, 
-  host: 'mysql.eecs.oregonstate.edu',
-  user: 'cs340_jonest3',
-  password: '2302',
-  database: 'cs340_jonest3',
+  host: '127.0.0.1',
+  user: 'root',
+  password: '',//ENTER PASSWEERD, if local, youll need to follow db-init.sh
+  database: 'smartchoices',
 });
 
 
@@ -353,7 +353,7 @@ app.post('/connectIngredientsToMeal',function(req,res,next){
 
 });
 
-// ---------- Searching Meals ------------
+
 app.get('/searchMeals', function(req,res,next){
    res.render('partials/searchMeals');
 });
@@ -371,12 +371,11 @@ app.post('/searchMeals', function(req,res,next){
 
         if(req.body.ingredients.length > 0)
         {
-                queryString += " JOIN contains c ON c.meal_id = m.meal_id JOIN ingredients i ON i.ingredient_id = c.ingredient_id WHERE i.ingredient_id ="+req.body.ingredie
+                queryString += " JOIN contains c ON c.meal_id = m.meal_id JOIN ingredients i ON i.ingredient_id = c.ingredient_id WHERE i.ingredient_id ="+req.body.ingredients[0];
                 for(var i = 1; i < req.body.ingredients.length; i++)
                 {
                         queryString += " AND i.ingredient_id ="+req.body.ingredients[i];
                 }
-
 
                 if(req.body.name != null  ||  req.body.genre != null  ||  req.body.prep_time != null)
                         queryString += " AND";
@@ -404,7 +403,7 @@ app.post('/searchMeals', function(req,res,next){
                 queryString += " m.prep_time <="+req.body.prep_time;
 
         }
-
+	queryString += " ORDER BY m.name;";
         console.log(queryString);
         pool.query(queryString, function(err,rows,fields){
                 if(err)
@@ -414,7 +413,7 @@ app.post('/searchMeals', function(req,res,next){
                 }
                 res.send(JSON.stringify(rows));
         });
-   }   
+   }
    else
         res.send(JSON.stringify(0));
 });
