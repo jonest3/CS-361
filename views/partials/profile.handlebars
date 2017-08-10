@@ -1,9 +1,46 @@
-<p>
-ID: {{user.id}}<br/>
-Username: {{user.username}}<br/>
-Name: {{user.displayName}}<br/>
-{{#if user.emails}}
-Email: {{user.emails.0.value}}<br/>
-{{/if}}
-</p>
-<a href="/logout">Log out</a>
+<div class="row" id="profile-row"><!-- Profile row -->
+	<div class="col-sm-3"></div>
+	<div class="col-sm-6">
+		<div class="jumbotron">
+	  		<h3 id="account-info-title">Account Information</h3>
+	  		<hr id="profile-hr">
+	  		<div class="row">
+	  			<div class="col-xs-1"></div>
+	  			<div class="col-xs-10">
+			  		<ul class="list-group" id="profile-list">
+						<li class="list-group-item">
+						  	<div class="row">
+						  		<div class="col-xs-4"><span class="badge badge-default">ID</span></div>
+						  		<div class="col-xs-8 centered">{{user.id}}</div>
+						    </div>
+						</li>
+						<li class="list-group-item">
+						  	<div class="row">
+						  		<div class="col-xs-4"><span class="badge badge-default">Name</span></div>
+						  		<div class="col-xs-8 centered">{{user.displayName}}</div>
+						    </div>
+						</li>
+						<li class="list-group-item">
+						  	<div class="row">
+						  		<div class="col-xs-4"><span class="badge badge-default">Username</span></div>
+						  		<div class="col-xs-8 centered">{{user.username}}</div>
+						    </div>
+						</li>
+						{{#if user.emails}}
+							<li class="list-group-item">
+								<div class="row">
+							  		<div class="col-xs-4"><span class="badge badge-default">Email</span></div>
+							  		<div class="col-xs-8 centered">{{user.emails.0.value}} </div>
+							    </div>
+							</li>
+						{{/if}}
+					</ul>
+
+			    	<a class="btn btn-danger btn-lg pull-right" href="/logout" role="button">Log Out</a>
+			    </div>
+		    <div class="col-xs-1"></div>
+	  		</div>
+		</div>
+	</div>
+	<div class="col-sm-3"></div>
+</div><!-- Profile row end -->

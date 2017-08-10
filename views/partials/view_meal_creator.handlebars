@@ -1,55 +1,73 @@
-<h2>{{this.meal.name}}</h2>
-<h4>{{this.meal.description}}</h4>
+<div class="container-fluid meal-profile">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="jumbotron col-sm-10" id="meal-jumbotron">
 
-<img src="{{this.meal.image}}" alt="Meal image could not be loaded"></img>
+            <h2 class="centered" id="meal-header">{{this.meal.name}}</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{{this.meal.image}}" alt="Meal image could not be loaded" id="meal-image">
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group" id="meal-details-list">
+                      <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-4"><span class="badge badge-default badge-pill">Genre</span></div>
+                            <div class="col-xs-8">{{this.meal.genre}}</div>
+                        </div>
+                      </li>
+                      <li class="list-group-item justify-content-between">
+                        <div class="row">
+                            <div class="col-xs-4"><span class="badge badge-default badge-pill">Preparation Time</span></div>
+                            <div class="col-xs-8">{{this.meal.prep_time}}</div>
+                        </div>
+                      </li>
+                      <li class="list-group-item justify-content-between">
+                        <div class="row">
+                            <div class="col-xs-4"><span class="badge badge-default badge-pill">Submitted by</span></div>
+                            <div class="col-xs-8">{{this.meal.username_id}}</div>
+                        </div>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <h5 class="centered">Ingredients</h5>
+                        {{#each this.activeIngredientsName}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    
+                    </ul>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <p>{{this.meal.description}}</p>
+                </div>
+            </div>
 
-<h5>Ingredients:</h5>
-<table>
-    <tbody>
-        {{#each this.activeIngredientsName}}
-          <tr><td>{{this}}</td></tr>
-        {{/each}}
-</table>
-<br>
-<h5>Details:</h5>
-<table>
-    <tbody>
-        <tr>
-            <td>Genre:</td>
-            <td>{{this.meal.genre}}</td>
-        </tr>
-        <tr>
-            <td>Preparation Time:</td>
-            <td>{{this.meal.prep_time}} minutes</td>
-        </tr>
-        <tr>
-            <td>Uploaded by user:</td>
-            <td>{{this.meal.username_id}}</td>
-        </tr>
-    </tbody>
-</table>
-<br>
-<h5>Availability</h5>
-<table>
-    <tbody>
-        <tr>
-            <td>Restaurant:</td>
-            {{#if this.restaurant}}
-                <td>{{this.restaurant.name}}
-            {{else}}
-                <td>{{No currently known restaurant for this recipe.}}</td>
-            {{/if}}
-        </tr>
-        {{#if this.restaurant}}
-            <tr>
-                <td>{{this.restaurant.street_name}}</td>
-            </tr>
-            <tr>
-                <td>{{this.restaurant.city}}, {{this.restaurant.state}}</td>
-            </tr>
-        {{/if}}
-    </tbody>
-</table>
-<br><br>
+            {#if this.restaurant}}
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li><h5 class="centered">Availability</h5><li>
+                        <li>{{this.restaurant.name}}</li>
+                        <li>{{this.restaurant.street_name}}</li>
+                        <li>{{this.restaurant.city}}</li>
+                        <li>{{this.restaurant.state}}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            {{/if}} 
+                
+                
+                
+                
+        </div>
+        <div class="col-sm-1"></div>
+    </div><!-- end row -->  
+</div>
 
 <a href="http://localhost:8666/remove/meal?id={{this.meal.meal_id}}">Delete Meal from SmartChoice.com</a> 
