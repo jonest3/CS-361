@@ -32,49 +32,117 @@
                 </button>
                 <h3 class="modal-title" id="myModalLabel">Create a Thread</h3>
             </div>
-            <form id="mealUploadForm">
-                <div class="modal-body">
+-----
+
+<div class="row">
+
+<div class="col-sm-2"></div>
+
+<div class="col-sm-8">
+
+<div class="container-fluid" id="upload-form-container"><!-- Upload Container
+-->
+
+<h1>Upload Meal</h1>
+
+<form id="mealUploadForm">
 <fieldset>
-    <legend>Share your meal!</legend>
-    <fieldset>
-        <legend>General Information</legend>
-  <label>Meal Name: </label><input type="text" id="mealName">
-   <label> Genre: </label><input type="text" id="genre"><br><br>
-       <label> Prep Time (minutes): </label><input type="number" id="prepTime">
-        <label> Image: </label><input type="text" id="image">
-        <br>
-    </fieldset>
-    <br>
-    <fieldset>
-        <legend> Description </legend> <textarea type="textbox" id="description"  maxlength="255" style="height: 100px; width: 400px;"></textarea>
-            <input type="hidden" value="1" id="username_id">
-            <input type="hidden" value="1" id="restaurant_id">
-        </fieldset>
-    <br>
-    <fieldset>
-        <legend> Add Ingredients </legend>
-        <label>Add New Ingredient:</label>
-                <input type="text" id="ingredientName">
-        <label>Type:</label> 
-                <input type="text" id="ingredientType">
-                <input type="button" value="Add New Ingredient" id="submitIngredient">
-        <br>
-        <br>
-        <label>Select from Existing Ingredients (use CMD or CTRL):</label>
-        <br>
 
-        <select multiple="multiple" style="width: 150px" id="ingredientsSelect">
+<div class="form-group" id="general-info-div">
+<fieldset>
 
-        </select>
-    </fieldset>
-    <br>
-    <div style="text-align: center; margin: auto;">
-        </div>
-    </fieldset>
+<legend>General Information</legend>
 
+<div id="name-genre-form" class="row">
+
+<div class="col-md-5">
+<label> Name </label><input class="form-control" type="text" id="mealName">
+</div>
+<div class="col-md-5">
+<label> Category </label><input class="form-control" type="text" id="genre">
+</div>
+<div class="col-md-2">
+<label> Prep Time<span id="star">*</span> </label><input class="form-control"
+type="number" id="prepTime">
+</div>
+
+</div>
+
+<div class="row">
+<div class="col-md-6">
+<label> Description </label><textarea class="form-control" type="textbox"
+id="description"  maxlength="255"" placeholder="Enter instructions
+here..."></textarea>
+<input type="hidden" value="1" id="username_id">
+<input type="hidden" value="1" id="restaurant_id">
+</div>
+<div class="col-md-6">
+
+<label> Image URL </label><input class="form-control" type="text" id="image"
+placeholder="http://">
+<br>
+<p id="minutes-message">*Enter prep time in minutes</p>
+</div>
+</div>
+
+</fieldset>
+</div>
+
+<div class="form-group">
+<fieldset>
+<legend> Add Ingredients </legend>
+
+<div class="row">
+
+<div class="col-md-5">
+<input class="form-control" type="text" id="ingredientName"
+placeholder="Ingredient Name">
+</div>
+<div class="col-md-5">
+<input class="form-control" type="text" id="ingredientType"
+placeholder="Ingredient Type">
+</div>
+<div class="col-md-2">
+<input class="form-control" type="button" value="Add" id="submitIngredient">
+</div>
+</div>
+
+</fieldset>
+</div>
 
 <br>
-    <script type="text/javascript" src="/upload.js"></script>
+
+<div class="form-group">
+<fieldset>
+<label>Select from Existing Ingredients <span id="key-press-instruction">(Hold
+    CMD/CTRL)</span></label>
+
+<div class="row">
+<div class="col-md-6">
+<select class="form-control" multiple id="ingredientsSelect">
+</div>
+</div>
+
+</select>
+</fieldset>
+</div>
+
+<br>
+</fieldset>
+
+</form>
+<br>
+</div><!-- Upload Container End -->
+
+</div><!-- End Column -->
+
+<div class="col-sm-2"></div>
+
+</div><!-- End Row -->
+
+<script type="text/javascript" src="/upload.js"></script>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
