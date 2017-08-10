@@ -1,4 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url('https://fonts.googleapis.com/css?family=Mogra|Noto+Sans|Roboto');
+
+
 
 /*------------------------------------------------------------------------- MODALS */
 .loginmodal-container {
@@ -205,14 +207,15 @@
 
 /*-------------------------------------------------------------------------HEADER*/
 .jumbotron {
+  font-family: "Mogra", Mogra, sans-serif;
   background-color: #ed9c23;
-  color: #999;
+  color: #399800;
   margin-bottom: 0;
 }
 
 /*-------------------------------------------------------------------------BODY*/
 body {
-  background-color: #454;
+  background-color: #467cb4;
 }
 
 /*
@@ -234,7 +237,116 @@ body {
 
 /*-------------------------------------------------------------------------FOOTER*/
 .footer {
-  background-color: #454;
+  background-color: #093c71;
   color: #999;
   margin-bottom: 0px;
 }
+
+/* grr css prio*/
+
+/*-------------------------------------------------------------------PARTIALS */
+
+/* login */
+
+#login-form {
+   margin-top: 20px;
+}
+
+#username-field {
+   margin-bottom: 7px;
+}
+
+#login-submit {
+   width: 100%;
+   margin-top: 14px;
+}
+
+#account-info-title {
+   text-align: center;
+}
+
+#login-header {
+   text-align: center;
+}
+
+#profile-header {
+   text-align: center;
+}
+
+#profile-hr {
+   width: 85%;
+}
+
+
+
+/*------ UPLOAD ------ */
+,
+#upload-form-container {
+   box-shadow: 3% 3%;
+}  
+
+#upload-form-container h1 {
+   text-align: center;
+}     
+
+#ingredientsSelect {
+   margin-top: 1%;
+}        
+
+#minutes-message {
+   font-size: 12px;
+   text-align: right;
+   color: red;      
+}                 
+
+#star {           
+   color: red;         
+}                    
+
+input[type=text] :focus {
+   background-color: lightblue;
+}                       
+
+input[type=number] {    
+   width: 20%;               
+}                          
+
+#name-genre-form input {   
+   width: 100%;                 
+}                             
+   
+/* ----- END UPLOAD ----- */ 
+/* View meal */
+#meal-details-list {
+   width: 100%;
+}
+
+#meal-jumbotron {
+   padding-top: 10px;
+}
+
+#meal-header {
+   padding-bottom: 10px;
+}
+
+#meal-image {
+   height: 100%;
+   width: 100%;
+}
+
+#description {
+   height: 102px;
+   resize: none;
+}
+.row, #prepTime {
+   margin-bottom: 2%;
+}
+
+#minutes, #key-press-instruction {
+   font-size: 11px;
+}
+
+li {
+   list-style-type: none;
+} 
+

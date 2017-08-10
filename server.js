@@ -29,6 +29,8 @@ passport.use(new Strategy(
     });
   }));
 
+
+
 // Configure Passport authenticated session persistence.
 //
 // In order to restore authentication state across HTTP requests, Passport needs
@@ -46,6 +48,63 @@ passport.deserializeUser(function(id, cb) {
     cb(null, user);
   });
 });
+
+
+var isValidPassword = function(user, password){
+  return bCrypt.compareSync(password, user.password);
+}
+
+//passport.use('signup', new LocalStrategy({
+//    passReqToCallback : true
+//  },
+//passport.use(new LocalStrategy(
+//  function(req, username, password, done) {
+//    findOrCreateUser = function(){
+//      // find a user in Mongo with provided username
+//      User.findByUsername({'username':username},function(err, user) {
+//        // In case of any error return
+//        if (err){
+//          console.log('Error in SignUp: '+err);
+//          return done(err);
+//        }
+//        // already exists
+//        if (user) {
+//          console.log('User already exists');
+//          return done(null, false, 
+//             req.flash('message','User Already Exists'));
+//        } else {
+//          // if there is no user with that email
+//          // create the user
+//          var newUser = new User();
+//          // set the user's local credentials
+//          newUser.username = username;
+//          newUser.password = createHash(password);
+//          newUser.email = req.param('email');
+//          newUser.firstName = req.param('firstName');
+//          newUser.lastName = req.param('lastName');
+// 
+//          // save the user
+//          newUser.save(function(err) {
+//            if (err){
+//              console.log('Error in Saving user: '+err);  
+//              throw err;  
+//            }
+//            console.log('User Registration succesful');    
+//            return done(null, newUser);
+//          });
+//        }
+//      });
+//    };
+//     
+//    // Delay the execution of findOrCreateUser and execute 
+//    // the method in the next tick of the event loop
+//    process.nextTick(findOrCreateUser);
+//  });
+//);
+
+var createHash = function(password){
+ return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+}
 
 
 
@@ -85,8 +144,8 @@ app.use(passport.session());
 var pool = mysql.createPool({
   connectionLimit: 10, 
   host: '127.0.0.1',
-  user: 'root',
-  password: '',//ENTER PASSWEERD, if local, youll need to follow db-init.sh
+  user: '',
+  password: '',
   database: 'smartchoices',
 });
 
@@ -104,7 +163,7 @@ app.get('/login',
   });
   
 app.post('/login', 
-  passport.authenticate('local', { failureRedirect: 'partials/login' }),
+  passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
@@ -114,6 +173,27 @@ app.get('/logout',
     req.logout();
     res.redirect('/');
   });
+
+  /* GET Registration Page */
+  app.get('/signup', function(req, res){
+    res.render('partials/register',{message: req.flash('message')});
+  });
+ 
+  /* Handle Registration POST */
+  app.post('/signup', passport.authenticate('signup', {
+    successRedirect: '/home',
+    failureRedirect: '/signup',
+    failureFlash : true 
+  }));
+/* Handle Logout */
+app.get('/signout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+
+ 
+
 
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
@@ -125,6 +205,12 @@ app.get('/',
     function(req, res) {
       res.render('index-page', { user: req.user });
     });
+//var isAuthenticated = function (req, res, next) {
+//  if (req.isAuthenticated())
+//    return next();
+//  res.redirect('/');
+//}
+
 
 
 //view meal stuffs 
