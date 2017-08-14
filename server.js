@@ -144,9 +144,9 @@ app.use(passport.session());
 var pool = mysql.createPool({
   connectionLimit: 10, 
   host: '127.0.0.1',
-  user: '',
+  user: '', //update me 
   password: '',
-  database: 'smartchoices',
+  database: '',
 });
 
 
@@ -267,6 +267,18 @@ app.get('/viewMeal', function(req, res, next){
                     }
 
                     console.log(context.activeIngredientsName);
+                    
+                    if (Number.isInteger(restaurantInfo.username_id)) {
+                        pool.query("SELECT `username` FROM users WHERE `user_id` = ?", [restaurantInfo.username_id], function(err, rows, fields) {
+
+                            if (err) {
+                              next(err);
+                              return;
+                            }
+
+                            context.username = rows[0];
+                        });
+                    }    
 
                     if (Number.isInteger(restaurantInfo.restaurant_id)) {
                         pool.query("SELECT `restaurant_id`, `name`, `street_name`, `city`, `state`, `zipcode` FROM restaurants WHERE `restaurant_id` = ?", [restaurantInfo.restaurant_id], function(err, rows, fields){
