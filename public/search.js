@@ -14,7 +14,8 @@ function showResults(objArr){
    	{
 		console.log(objArr[i].image);
 
-
+		if(i!=0  &&   i % 4 === 0  && i !== objArr.length - 1)
+			resultList += "</tr>";
 		if(i % 4 === 0)
 			resultList += "<tr>";
 
@@ -26,10 +27,6 @@ function showResults(objArr){
 				resultList += "</div>";
 				resultList += "</a>";
 			resultList += "</td>";
-
-		if(i!=0  &&   i % 4 === 0  && i !== objArr.length - 1)
-			resultList += "</tr>";
-
    	}
 
 	resultList += "</tr>";
