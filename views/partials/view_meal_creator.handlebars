@@ -25,7 +25,13 @@
                       <li class="list-group-item justify-content-between">
                         <div class="row">
                             <div class="col-xs-4"><span class="badge badge-default badge-pill">Submitted by</span></div>
-                            <div class="col-xs-8">{{this.meal.username_id}}</div>
+                            <div class="col-xs-8">
+                              {{#if this.username}}
+                                 {{this.username.username}}
+                              {{else}}
+                                 Not uploaded by user
+                              {{/if}}                           
+                           </div>
                         </div>
                       </li>
                     </ul>
@@ -70,4 +76,4 @@
     </div><!-- end row -->  
 </div>
 
-<a href="http://localhost:8666/remove/meal?id={{this.meal.meal_id}}">Delete Meal from SmartChoice.com</a> 
+<a href="/remove/meal?id={{this.meal.meal_id}}">Delete Meal from SmartChoice.com</a> 

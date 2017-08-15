@@ -211,6 +211,7 @@
   background-color: #288181;
   color: #b1d36f;
   margin-bottom: 0;
+  padding-top: 50px;
 }
 
 /*-------------------------------------------------------------------------BODY*/
@@ -360,7 +361,7 @@ li {
 }
 
 .tag {
-   width:       290px;
+   width:       300px;
    float:       left;
    left:        0px;
    top:         245px;
@@ -378,6 +379,12 @@ li {
    width:       300px;
    margin:      auto;
    display:     block;
+}
+
+.btn btn-primary {
+   background-color: #AE3535 !important;
+   border: #d36060 !important;
+
 }
 /*------------------ End  Search Page --------------------*/
 

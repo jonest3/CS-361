@@ -7,17 +7,17 @@ function showResults(objArr){
    {
    	var resultList = "<center>";
 
-	resultList += "<div style='overflow-x:auto;'>";
-	resultList += "<table class='search-container'>";
+   	resultList += "<div style='overflow-x:auto;'>";
+   	resultList += "<table class='search-container'>";
 
    	for(var i=0; i < objArr.length; i++)
    	{
-		console.log(objArr[i].image);
+   		console.log(objArr[i].image);
 
-		if(i!=0  &&   i % 4 === 0  && i !== objArr.length - 1)
-			resultList += "</tr>";
-		if(i % 4 === 0)
-			resultList += "<tr>";
+         if(i != 0  &&  i % 4 === 0  &&  (i !== objArr.length - 1))
+            resultList += "</tr>";
+   		if(i % 4 === 0)
+	   		resultList += "<tr>";
 
 			resultList += "<td>";
 				resultList += "<a href='"+link+objArr[i].meal_id+"' id='"+objArr[i].meal_id+"' title='Prep Time: "+objArr[i].prep_time+" minute(s)'>";
@@ -27,18 +27,21 @@ function showResults(objArr){
 				resultList += "</div>";
 				resultList += "</a>";
 			resultList += "</td>";
+
+//		   if(i != 0  &&  i % 4 === 0  && ( i !== objArr.length - 1))
+//			   resultList += "</tr>";
    	}
 
-	resultList += "</tr>";
-	resultList += "</table>";
-	resultList += "</div>";
-	resultList += "</center>";
+   	resultList += "</tr>";
+   	resultList += "</table>";
+   	resultList += "</div>";
+   	resultList += "</center>";
    	console.log(resultList);
    	document.getElementById("results").innerHTML = resultList;
    }
    else
    {
-	document.getElementById("results").textContent = "No Results Found";
+   	document.getElementById("results").textContent = "No Results Found";
    }
 }
 
