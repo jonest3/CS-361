@@ -1,0 +1,115 @@
+# Tables:
+
+# Ingredient
+
+CREATE TABLE ingredients(
+	ingredient_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+type VARCHAR(255) NOT NULL  
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
+# Dietary_Attribute
+
+CREATE TABLE dietary_attributes(
+	da_id	INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name	VARCHAR(255) NOT NULL
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
+# User
+
+CREATE TABLE users(
+	user_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(30) NOT NULL UNIQUE,
+	password VARCHAR(100) NOT NULL
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
+# Restaurant
+
+CREATE TABLE restaurants(
+	restaurant_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+street_name VARCHAR(255) NOT NULL,
+city VARCHAR(255) NOT NULL,
+state VARCHAR(255) NOT NULL,
+zipcode INT(5) NOT NULL,									genre VARCHAR(255)		
+) Engine=InnoDB DEFAULT CHARSET=utf8;	
+
+# Meal
+	
+CREATE TABLE meals(
+	meal_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	description VARCHAR(255) NOT NULL,
+	genre VARCHAR(255),
+	prep_time INT UNSIGNED NOT NULL,
+	image VARCHAR(300),
+	username_id INT(10) UNSIGNED NOT NULL,
+	restaurant_id INT(10) UNSIGNED NOT NULL,
+	FOREIGN KEY fk_username (username_id) REFERENCES users (user_id) 
+ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY fk_restaurant (restaurant_id) REFERENCES restaurants (restaurant_id) 
+ON UPDATE CASCADE ON DELETE CASCADE
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
+# ---------------------- Many-to-Many Tables ---------------------------
+
+# Contains (ingredient & meal)
+
+CREATE TABLE contains(
+ingredient_id INT(10) UNSIGNED NOT NULL,
+meal_id INT(10) UNSIGNED NOT NULL,
+FOREIGN KEY fk_ingredient (ingredient_id) REFERENCES ingredients (ingredient_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY fk_meal (meal_id) REFERENCES meals (meal_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+PRIMARY KEY(ingredient_id, meal_id)
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
+# Saves (user & meal)
+
+CREATE TABLE saves(
+user_id INT(10) UNSIGNED NOT NULL,
+meal_id INT(10) UNSIGNED NOT NULL,
+FOREIGN KEY fk_user (user_id) REFERENCES users (user_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY fk_meal (meal_id) REFERENCES meals (meal_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+PRIMARY KEY(user_id, meal_id)
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
+# Registers (User & Restaurant)
+
+CREATE TABLE registers(
+user_id INT(10) UNSIGNED NOT NULL,
+restaurant_id INT(10) UNSIGNED NOT NULL,
+FOREIGN KEY fk_user (user_id) REFERENCES users (user_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY fk_restaurant (restaurant_id) REFERENCES restaurants (restaurant_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+PRIMARY KEY(user_id, restaurant_id)
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
+# Haves (Dietary_Attribute & Meal)
+
+CREATE TABLE haves(
+da_id INT(10) UNSIGNED NOT NULL,
+meal_id INT(10) UNSIGNED NOT NULL,
+FOREIGN KEY fk_da (da_id) REFERENCES dietary_attributes (da_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY fk_meal (meal_id) REFERENCES meals (meal_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+PRIMARY KEY(da_id, meal_id)
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
+# Has (User & Dietary_Attribute)
+
+CREATE TABLE has(
+user_id INT(10) UNSIGNED NOT NULL,
+da_id INT(10) UNSIGNED NOT NULL,
+FOREIGN KEY fk_user (user_id) REFERENCES users (user_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY fk_da (da_id) REFERENCES dietary_attributes (da_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+PRIMARY KEY(user_id, da_id)
+) Engine=InnoDB DEFAULT CHARSET=utf8;
+
