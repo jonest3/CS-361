@@ -5,21 +5,37 @@ var link = "/viewMeal?id=";
 function showResults(objArr){
    if(objArr.length > 0)
    {
-//   	var resultList = "<ul>";
-	var resultList = "";
+   	var resultList = "<center>";
+
+	resultList += "<div style='overflow-x:auto;'>";
+	resultList += "<table class='container'>";
+
    	for(var i=0; i < objArr.length; i++)
    	{
 		console.log(objArr[i].image);
-		resultList += /*"<li>*/"<img src='"+objArr[i].image+"' alt='"+objArr[i].name+"' style='width:100px;height:100px;'>";
-		resultList += "<a href='"+link+objArr[i].meal_id+"' id='"+objArr[i].meal_id+"' ";
-		resultList += "title='"+objArr[i].description+"'>";
-		resultList += objArr[i].name + " [Prep Time: "+ objArr[i].prep_time+" mins]";
-		resultList += "</a>";
-		resultList += "<br>";
-//		resultList += "</li>";
+
+
+		if(i % 4 === 0)
+			resultList += "<tr>";
+
+			resultList += "<td>";
+				resultList += "<a href='"+link+objArr[i].meal_id+"' id='"+objArr[i].meal_id+"' title='Prep Time: "+objArr[i].prep_time+" minute(s)'>";
+				resultList += "<img src='"+objArr[i].image+"' alt='"+objArr[i].name+"' class='searchImage'>";
+				resultList += "<div class='tag'>";
+					resultList += objArr[i].name;
+				resultList += "</div>";
+				resultList += "</a>";
+			resultList += "</td>";
+
+		if(i!=0  &&   i % 4 === 0  && i !== objArr.length - 1)
+			resultList += "</tr>";
+
    	}
 
-//   	resultList += "</ul>";
+	resultList += "</tr>";
+	resultList += "</table>";
+	resultList += "</div>";
+	resultList += "</center>";
    	console.log(resultList);
    	document.getElementById("results").innerHTML = resultList;
    }
@@ -38,34 +54,16 @@ function createBoxes(objArr){
 	{
 		ingredientOptions += "<input type='checkbox' name='ingredients[]' value='"+objArr[i].ingredient_id+"'/>"+objArr[i].name;
 		ingredientOptions += "&nbsp&nbsp&nbsp";
-		if(i % 6 === 0  &&  i != 0)
-			ingredientOptions += "<br>";
+//		if(i % 6 === 0  &&  i != 0)
+//			ingredientOptions += "<br>";
 	}
-	if((i - 1) % 6 != 0)
-		ingredientOptions += "<br>";
+//	if((i - 1) % 6 != 0)
+//		ingredientOptions += "<br>";
 
 	document.getElementById("checkboxDiv").innerHTML = ingredientOptions;
    }
 }
-/*
-function viewMeal(meal_id){
-   var payload = {id:null};
-   payload.id = meal_id;
 
-   var req = new XMLHttpRequest();
-   req.open("POST", "/viewMeal", true);
-   req.setRequestHeader("Content-Type","application/json");
-   req.addEventListener("load",function(){
-   	if(req.status >= 200  &&  req.status < 400)
-	{
-		console.log("I hope this works");
-	}
-	else
-		console.log("Danger, danger");
-   });
-   req.send(JSON.stringify(payload));
-}
-*/
 function searchButton(){
    document.getElementById("searchMeals").addEventListener("click", function(event){
 	var payload = {name:null, genre:null, prep_time:null, ingredients:null};
