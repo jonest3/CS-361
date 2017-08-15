@@ -208,14 +208,14 @@
 /*-------------------------------------------------------------------------HEADER*/
 .jumbotron {
   font-family: "Mogra", Mogra, sans-serif;
-  background-color: #ed9c23;
-  color: #399800;
+  background-color: #206868;
+  color: #7DA232;
   margin-bottom: 0;
 }
 
 /*-------------------------------------------------------------------------BODY*/
 body {
-  background-color: #467cb4;
+  background-color: #F7F7F7;
 }
 
 /*
@@ -237,7 +237,7 @@ body {
 
 /*-------------------------------------------------------------------------FOOTER*/
 .footer {
-  background-color: #093c71;
+  background-color: #0D5252;
   color: #999;
   margin-bottom: 0px;
 }
