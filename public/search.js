@@ -8,7 +8,7 @@ function showResults(objArr){
    	var resultList = "<center>";
 
 	resultList += "<div style='overflow-x:auto;'>";
-	resultList += "<table class='container'>";
+	resultList += "<table class='search-container'>";
 
    	for(var i=0; i < objArr.length; i++)
    	{
