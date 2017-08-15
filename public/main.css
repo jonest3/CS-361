@@ -380,3 +380,12 @@ li {
    display:     block;
 }
 /*------------------ End  Search Page --------------------*/
+
+.webTitle {
+    font-size:    45px;
+    font-weight:  bold;
+}
+
+.webTag {
+    font-size:  30px;
+}
